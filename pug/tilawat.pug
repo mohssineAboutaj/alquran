@@ -1,0 +1,11 @@
+-var quranDirectory = 'quran/';
+div.container.tilawat
+  h3 قائمة التشغيل
+  hr
+  div#audioPanel
+    ul#playlist
+      -var quranInfo = {1:["الفاتحة","العيون الكوشي","alfatiha 1"],2:["الفاتحة","عبد الياسط عبد الصمد","alfatiha 2"],3:["الفاتحة","ماهر المعيقلي","alfatiha 2"],4:["الناس","ناصر القطامي","114"]}
+      each info in quranInfo
+        li(data-mp3=quranDirectory + info[2] + ".mp3")
+          ='سورة ' + info[0] + ' \/ ' + info[1]
+
