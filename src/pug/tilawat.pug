@@ -1,0 +1,10 @@
+include inc\_var
+div.container.tilawat
+  h3 قائمة التشغيل
+  hr
+  div#audioPanel
+    ul#playlist
+      each info in quranInfo
+        li(data-mp3=quranDir + info[2] + ".mp3")
+          ='سورة ' + info[0] + ' \/ ' + info[1]
+

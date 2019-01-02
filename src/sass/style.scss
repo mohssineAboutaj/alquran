@@ -1,0 +1,318 @@
+/*
+*** Project Name: Quran play - ajax
+*/
+
+/* Start Global Variables */
+// Colors >>
+$primary  : #663399;
+$secondary: #FFC600;
+$light    : #EAEAEA;
+$white    : #FFFFFF;
+$dark     : #272727;
+// Directions >>
+$ar: rtl;
+$en: ltr;
+// img Directory
+$imgDir: '../img/';
+// Fonts directory
+$fontDir: '../fonts/';
+/* Ebd Global Variables */
+
+/* Font Faces */
+@font-face {
+	font-family: moNowel;
+	src: url('#{$fontDir}moNowel.ttf');
+}
+@font-face {
+	font-family: quran;
+	src: url('#{$fontDir}arabswell-1.ttf');
+}
+@font-face {
+	font-family: Xarabic;
+	src: url('#{$fontDir}arabswell-3.ttf');
+}
+
+$primaryFont: Xarabic, arial;
+$secondaryFont: moNowel, tahoma, verdana;
+/************************/
+
+/* Style for font qlQuran */
+.quran {
+	font-family: quran;
+	font-size: 26px;
+}
+/*************************************/
+
+/* Start grouping Elements */
+// import require files
+@import "global";
+/* End grouping Elements */
+
+/* Start styles of Global use ***************/
+* { direction: $ar }
+
+body {
+	direction: $ar;
+	font-family: $secondaryFont;
+	color: $dark;
+	height: 100%;
+}
+
+h1, h2, h3, h4, h5 { 
+	font-family: $primaryFont;
+	@extend %tc;
+	font-weight: bold;
+}
+
+p {
+	font-size: 28px;
+	line-height: 1.5;
+	padding: 10px;
+	font-family: $secondaryFont;
+}
+
+a, a *, a:hover {
+	@extend .no-decore;
+	color: $dark;
+}
+
+#pageContent {
+	margin: 100px auto 20px auto;
+}
+
+.section {
+	padding: 30px;
+	font-size: 18px;
+	@extend %tc;
+	background-color: $light;
+	color: $dark;
+	@include prefix(box-shadow, -10px 10px 50px rgba($dark, .5));
+	border: 1px solid $secondary;
+}
+
+.circle { @extend %circle }
+/* End styles of Global element ****************/
+
+/* Start navbar */
+nav {
+	width: 100%;
+	direction: $ar;
+	position: fixed !important;
+	#{$right}: 0;
+	#{$left}: 0;
+	top: 0;
+	background-color: $primary;
+	font-size: 28px;
+	font-family: $secondaryFont;
+	z-index: 10;
+	text-align: $right;
+	@include prefix(box-shadow, 5px 5px 5px 5px rgba($primary, .25))
+}
+
+nav * { color: $white }
+
+nav .navbar-brand {
+	@extend %circle;
+	@extend %overHide;
+}
+
+nav .navbar-brand img {
+	width: 50px;
+}
+
+nav li { @extend %trans }
+
+nav li:hover *, nav li:focus *, nav .active * { 
+	color: $secondary
+}
+/* End navbar */
+
+/* Start classes ************************/
+.home {
+	padding: 20px;
+	@extend %overHide;
+}
+
+.home .header {
+	background-image: url('#{$imgDir}Quran.jpg');
+	min-height: 300px;
+	@extend %rel;
+	color: $secondary;
+}
+
+.home .header .overlay {
+	@extend %overlay;
+	@extend %bgdark5;
+	padding: 30px 0px;
+}
+
+.home a {
+	margin-top: 20px;
+}
+/* => page: alQurae */
+.alQurae {
+	height: 500px;
+	@extend %overHide;
+	@extend %rel;
+	margin-bottom: 30px;
+}
+
+.alQurae img {
+	height: 300px;
+	@extend %circle
+}
+
+.alQurae a {
+	@extend %abs;
+	#{$left}: 10px;
+	bottom: 10px;
+}
+
+.alQurae a * { color: $white }
+
+/* => page: Tilawat */
+.tilawat {
+	color: $dark;
+	@extend %tc;
+}
+
+
+.tilawat audio {
+	@include prefix(transition, all 0.2s linear);
+	@include prefix(box-shadow, 2px 2px 4px 0px rgba(0,0, 0, 0.4));
+	@extend %rad7px;
+	width: 100%;
+}
+
+.tilawat audio:hover, 
+.tilawat audio:focus, 
+.tilawat audio:active {
+	@include prefix(box-shadow, 15px 15px 20px rgba(0,0, 0, 0.4));
+	@include prefix(transform, scale(1.07));
+}
+
+.tilawat .playerWrap {
+	@extend %block;
+  margin-top: 7px;
+}
+
+.tilawat #audioPanel {
+  padding: 15px;  
+}
+
+.tilawat #audioPanel ul {
+	width: 100%;
+  margin: 0 auto;
+  padding: 0;
+	@extend .no-decore;
+}
+
+.tilawat #audioPanel li {
+	@include prefix(box-shadow, 0px 2px 0px 0px rgba(0,0,0,0.2));
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #eae0c2), color-stop(1, #ccc2a6));
+	background: -moz-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+	background: -webkit-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+	background: -o-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+	background: -ms-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+	background: linear-gradient(to bottom, #eeeeee 5%, #ccbbaa 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eae0c2', endColorstr='#ccc2a6',GradientType=0);
+	background-color:#eeeeee;
+	@extend %rad20px;
+	border: 1px solid rgba(0,0,0,0.2);
+	@extend %block;
+	cursor: pointer;
+	color: $dark;
+	font-family: $primaryFont;
+	font-size: 22px;
+	font-weight: bold;
+	padding: 4px 16px;
+  margin: 5px;
+	text-shadow: 0px 1px 0px $white;
+}
+
+.tilawat #audioPanel li:hover, .selected {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ccc2a6), color-stop(1, #eae0c2));
+	background: -moz-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+	background: -webkit-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+	background: -o-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+	background: -ms-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+	background: linear-gradient(to bottom, #ccc2a6 5%, #eae0c2 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ccc2a6', endColorstr='#eae0c2',GradientType=0);
+	background-color: #ccc2a6;
+}
+
+.tilawat #audioPanel li:active {
+	@extend %rel;
+	top: 1px;
+}
+
+/* => page: About */
+.about {
+	direction: $ar;
+	text-align: $right;
+	font-size: 28px;
+	line-height: 1.5;
+	padding: 10px;
+	font-family: $secondaryFont, arial;
+}
+
+.about .tech {
+	@extend %tc;
+	margin-bottom: 15px;
+}
+
+.about .tech div { margin: auto }
+
+.about .tech img {
+	margin: 5px;
+	height: 100px;
+}
+
+.about .center {
+	margin-top: 20px;
+	@extend %tc;
+}
+
+/* => page: Contact */
+.contact h3 { margin-bottom: 30px }
+
+.contact div {
+	width: 90%;
+	margin: 10px auto;
+	padding: 5px;
+	@extend %rad10px;
+	@extend %trans;
+	color: $white;
+}
+
+.contact div * { color: $white }
+
+.contact div i { margin: 10px }
+
+.contact .mail {background-color: $dark }
+
+.contact .fb { background-color: $facebook }
+
+.contact .tw { background-color: $twitter }
+
+.contact .gp { background-color: $googlePlus }
+
+.contact .git { background-color: $github }
+
+.mail:hover , .fb:hover , .tw:hover , .gp:hover , .git:hover { 
+	opacity: .9
+}
+/* End classes *********************/
+
+/* Start footer of pages ****************/
+footer {
+	@extend %tc;
+  background-color: $primary;
+	color: $white;
+	font-size: 20px;
+}
+
+footer .col { padding: 20px; }
+
+footer div b { color: $secondary }
+/* End footer of pages ****************/

@@ -1,20 +1,30 @@
 {
-  "name": "al-quran",
+  "name": "jquery-shuffle-maf",
   "version": "1.0.0",
-  "description": "بسم الله الرحمان الرحيم ، و الصلاة و السلام على سيدنا محمد اشرف المرسلين عليه ارفع الصلوات و ازكى تسليم ، و على اله و صحيه الطيبين الطاهرين ، اللهم علمنا ما ينفعنا و انفعنا بما علمتنا ، انك انت العليم الحكيم ، اما بعد ، فاني بفضل الله قمت بانشاء هدا الموقع الدي يضم سورا من الدكر الحكيم ، متلوة باصوات ارفع القراء من مختلف انحاء العالم الاسلامي ، و سضم ايضا بعض المعلومات عنهم ، و استعملت فيه مجموعة من اللغات و التقنيات البرمجية ، و التي هي على النحو التالي :\r Html5\r Pug\r Css3\r Sass\r javaScript\r jQuery\r في هدا الموقع استعملت بعض Plugin و Frameworks, و دلك لجعل الموقع جميلا و انيقا يليق بمحتواه الدي هو كلام الله سبحانه و تعالى",
+  "description": "this is package json contain all require plugins name for this project based using gulp as task runner",
   "main": "gulpfile.js",
   "dependencies": {
-    "gulp": "^3.9.1",
+    "browser-sync": "^2.24.6",
+    "gulp": "^3.9.0",
     "gulp-cli": "^2.0.1",
-    "gulp-connect": "^5.5.0",
-    "gulp-livereload": "^3.8.1",
-    "gulp-sass": "^4.0.1",
-    "gulp-pug": "^4.0.1"
+    "gulp-pug": "^4.0.1",
+    "gulp-sass": "^4.0.2",
+    "run-sequence": "^2.2.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp-clean-css": "^3.10.0",
+    "gulp-minify": "^1.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "sass",
+    "pug",
+    "minify",
+    "browser-sync",
+    "gulp-clean-css"
+  ],
   "author": "Mohssine Aboutaj",
   "license": "MIT"
 }

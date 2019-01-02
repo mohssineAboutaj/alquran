@@ -1,0 +1,20 @@
+//- include global variables
+include _var
+// Start meta tags
+meta(charset="UTF-8")
+// meta tag for responsive
+meta(name="viewport", content="width=device-width, initial-scale=1")/
+// meta tag to change status bar color
+meta(name="theme-color", content=mainColor)/
+// for safari ( IOS )
+meta(name="apple-mobile-web-app-status-bar-style", content=mainColor)/
+// website author
+meta(name="author", content=author)
+// website description
+meta(name="description", content=websiteDescription)
+// End meta tags
+title= websiteTitle
+// Start stylesheet files
+each file in cssFiles
+	link(rel="stylesheet", href=cssDir + file)
+// End stylesheet files

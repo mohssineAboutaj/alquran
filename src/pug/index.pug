@@ -1,0 +1,26 @@
+
+// Project Name: Quran play - ajax
+// Description : this is webisite islamic for alQuran alkarim it has many Sowar of alquran and information for alQurae , it"s open source for any one can be edit or help me to update
+// Author       : Mohssine Aboutaj
+// Version     : 1.10.09
+// License     : MIT, (open source and avaliable for anyone)
+// Contact Us  : mohssineaboutajtempalte@gmail.com
+
+
+include inc\_var
+doctype html
+html(lang="ar", dir="rtl")
+	head
+		//- include head ( meta tags, title, style sheet ... )
+		include inc\_head
+	body(data-main-color=mainColor, data-second-color=secondColor)
+		//- include navbar
+		include inc\_nav
+
+		// Start main page content changed using AJAX
+		#pageContent
+			include home
+		// End main page content changed using AJAX
+
+		//- include footer ( copyright text, scripts ... )
+		include inc\_footer

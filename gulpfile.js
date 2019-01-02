@@ -1,63 +1,120 @@
-const gulp    = require('gulp');
+// gulp file
 
-var sass    = require('gulp-sass'), // sass plugin 
-    pug     = require('gulp-pug'), // pug plugin 
-    live    = require('gulp-livereload'), // reload browser auto plugin
-    /* all directory"s */
-    imgDir  = 'img/*', 
-    sassDir = 'sass/*.scss', 
-    pugDir  = 'pug/*',
-    jsDir   = 'js/*',
-    cssDir  = 'css/*';
+const gulp = require('gulp'); 
 
-// prevent error stop the watching 
-function preventError(err){ 
-  console.log(err); 
-  this.emit('end'); 
-} 
+/* Start reqiure packages area */
 
-// sass function 
-gulp.task('sassTask', function() { 
-  gulp.src(sassDir) 
-    .pipe(sass()) 
-    .on("error", preventError) 
-    .pipe(gulp.dest('css')) 
-    .pipe(live()); 
-}); 
+// sass plugin 
+let sass        = require('gulp-sass');
 
-// pug function 
-gulp.task('pugTask', function(){
-  return gulp.src(pugDir)
-    .pipe(pug({pretty: true}))
-    .on("error", preventError)
-    .pipe(gulp.dest('html'))
-    .pipe(live());
+// pug plugin 
+let pug         = require('gulp-pug');
+
+// compress js files
+let minify      = require('gulp-minify');
+
+// compress css files
+let cleanCSS    = require('gulp-clean-css');
+
+// reload browser auto plugin
+let browserSync = require('browser-sync');
+
+// run sequence plugin to run task one by one
+let runSequence = require('run-sequence');
+/* End reqiure packages area */
+
+/* Start directories area */
+let myRoot  = './';
+let layout  = myRoot + 'app/';
+let src     = myRoot + 'src/';
+let sassDir = src + 'sass';
+let pugDir  = src + 'pug';
+let jsDir   = 'js';
+let cssDir  = 'css';
+let htmlDir = layout + 'html/';
+/* End directories area */
+
+/* Start file path's area */
+let sassFiles = sassDir + '/*.scss';
+let jsFiles   = jsDir + '/*.js';
+let cssFiles  = cssDir + '/*.css';
+let pugFiles  = pugDir + '/**/*.pug';
+let pugIndex  = pugDir + '/index.pug';
+/* End file path's area */
+
+// showt & prevent error stop the gulp script
+function showError(err){
+  console.log(err);
+  this.emit('end');
+}
+
+// SASS task 
+gulp.task('sassTask', ()=>{
+  gulp.src(sassFiles)
+      .pipe(sass())
+      .on("error", showError)
+      .pipe(gulp.dest(src + cssDir))
+      .pipe(browserSync.stream());
 });
 
-// javaScript task
-gulp.task('jsTask', function(){
-  gulp.src(jsDir + 'custom.js')
-   .pipe(live()); 
+// PUG task 
+gulp.task('pugTask', ()=>{
+  return gulp.src([
+          '!' + pugIndex, 
+          pugDir + '/*.pug'
+        ])
+        .pipe(pug({pretty: true}))
+        .on("error", showError)
+        .pipe(gulp.dest(htmlDir))
+        .pipe(browserSync.stream());
 });
 
-// Css task
-gulp.task('cssTask', function(){
-  gulp.src(cssDir + 'style.css')
-   .pipe(live()); 
+// PUG task 
+gulp.task('pugIndexTask', ()=>{
+  return gulp.src(pugIndex)
+        .pipe(pug({pretty: true}))
+        .on("error", showError)
+        .pipe(gulp.dest(myRoot))
+        .pipe(browserSync.stream());
 });
 
-// html task
-gulp.task('htmlTask', function(){
-  gulp.src('*.html')
-   .pipe(live());
+// JAVASCRIPT task
+gulp.task('jsTask', ()=>{
+  gulp.src(src + jsFiles)
+      .pipe(minify({
+        ext: { min:'.js' },
+        noSource: true
+      }))
+      .on("error", showError)
+      .pipe(gulp.dest(layout + jsDir))
+      .pipe(browserSync.stream());
 });
- 
-// Start default task and watching files 
-gulp.task('default', function() { 
-  live.listen(); 
-  gulp.watch(sassDir, ['sassTask']); 
-  gulp.watch(pugDir, ['pugTask']); 
-  gulp.watch(jsDir, ['jsTask']); 
-  gulp.watch(cssDir, ['cssTask']); 
-  gulp.watch('*.html', ['htmlTask']);
+
+// CSS task
+gulp.task('cssTask', ()=>{
+  return gulp.src(src + cssFiles)
+        .pipe(cleanCSS({compatibility: 'ie8'}))
+        .pipe(gulp.dest(layout + cssDir))
+        .pipe(browserSync.stream());
+});
+
+// Static Server + watching files
+gulp.task('browserSyncTask', ()=>{
+  browserSync.init({
+    server: myRoot
+  });
+});
+
+// Watch task
+gulp.task('watchTask', ()=>{
+  gulp.watch(sassFiles, ['sassTask']);
+  gulp.watch(pugFiles, ['pugTask','pugIndexTask']);
+  gulp.watch(src + cssFiles, ['cssTask']);
+  gulp.watch(src + jsFiles, ['jsTask']);
+  ['browserSyncTask'];
+});
+
+// Run default task
+gulp.task('default', ()=>{
+  return runSequence('sassTask', 'pugTask', 'cssTask', 'jsTask', 'pugIndexTask', 'browserSyncTask','watchTask');
 });

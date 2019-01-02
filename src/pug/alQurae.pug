@@ -1,0 +1,20 @@
+include inc\_var
+each info in alQuraeInfo
+  -var qName = info[0]
+  -var qImg = info[1]
+  -var qAbout = info[2]
+  -var readMore = info[3]
+  div.container.section.alQurae
+    h2=qName
+    div.wow.fadeIn
+      div.row.row-reverse
+        ='\n\t\t'
+        img(class="col-xs-12 col-sm-4", src=alQuraeImgs + qImg, alt=qName)
+        p.col-xs-12.col-sm-8
+          if qAbout.length > limitChars
+            =qAbout.slice(0, limitChars) + '...'
+          else
+            =qAbout
+      a(href=readMore, class="btn btn-info float-left")
+        | اقرأ المزيد 
+        i.fab.fa-leanpub
